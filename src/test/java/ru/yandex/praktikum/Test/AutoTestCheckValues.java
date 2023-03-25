@@ -11,7 +11,7 @@ import ru.yandex.praktikum.PageObject.PageObjectHomePage;
 
 
 @RunWith(Parameterized.class)
-public class AutoTestCheckValues {
+public class AutoTestCheckValues extends SetWebDriver {
 
     private WebDriver driver;
 
@@ -45,12 +45,8 @@ public class AutoTestCheckValues {
 
     @Before
     public void setup() {
-        String setbrowser = "firefox"; //firefox, chrome
-        if (setbrowser.equals("chrome")){
-            driver = new ChromeDriver();
-        } else {
-            driver = new FirefoxDriver();
-        }
+        driver = setupDriver();
+
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 

@@ -13,7 +13,7 @@ import ru.yandex.praktikum.PageObject.PageObjectRegistrationPageRent;
 import ru.yandex.praktikum.PageObject.PageObjectRegistrationPageUser;
 
 @RunWith(Parameterized.class)
-public class AutoTestOrderScooter {
+public class AutoTestOrderScooter extends SetWebDriver {
 
     private WebDriver driver;
 
@@ -53,12 +53,7 @@ public class AutoTestOrderScooter {
 
     @Before
     public void setup() {
-        String setbrowser = "chrome"; //firefox,chrome
-        if (setbrowser.equals("chrome")){
-            driver = new ChromeDriver();
-        } else {
-            driver = new FirefoxDriver();
-        }
+        driver = setupDriver();
         driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
