@@ -6,10 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class PageObjectHomePage {
@@ -24,27 +21,23 @@ public class PageObjectHomePage {
         this.driver = driver;
     }
 
-    public void checkFaqText(List <String> valueOfText) {
+    public void checkFaqText(String valueOfText, boolean result, int numElementFQA ) {
         //скролл до элемента FQA
         WebElement element = driver.findElement(faq);
         ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element);
-        int xpathCount= driver.findElements(faq).size();
         //список элементов для проверки текста  FQA
         List <WebElement> faqButton = driver.findElements(By.xpath(faq.toString().substring(10) +"/div[contains(@id,'accordion__heading')]"));
+        //скролл до элемента который необходимо открыть
+        WebElement element1 = faqButton.get(numElementFQA-1);
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element1);
+        element1.click();
+        WebElement element2 = driver.findElement(faqText);
+        //ожидание появления текста
+        new WebDriverWait(driver, 3)
+                .until(ExpectedConditions.visibilityOf(element2));
+        String valueOfTextFQA = element2.getText();
+        Assert.assertEquals("Текст элемента " + (numElementFQA) + " не соответствует заявленному", result, valueOfTextFQA.equals(valueOfText));
 
-        //цикл для сравнения элементов текста FQA с определенными значениями
-        for (int i = 0; i< xpathCount;i++) {
-            //скролл до элемента который необходимо открыть
-            WebElement element1 = faqButton.get(i);
-            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", element1);
-            faqButton.get(i).click();
-            WebElement element2 = driver.findElement(faqText);
-            //ожидание появления текста
-            new WebDriverWait(driver, 3)
-                    .until(ExpectedConditions.visibilityOf(element2));
-            String valueOfTextFQA = element2.getText();
-            Assert.assertTrue("Текст элемента " + (i+1) + " не соответствует заявленному", valueOfTextFQA.equals(valueOfText.get(i)));
-        }
     }
 
     //клик по кнопке сделать заказ

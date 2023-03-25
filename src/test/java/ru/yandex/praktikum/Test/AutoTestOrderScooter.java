@@ -53,12 +53,10 @@ public class AutoTestOrderScooter {
 
     @Before
     public void setup() {
-        String setbrowser = "chrome"; //firefox
+        String setbrowser = "chrome"; //firefox,chrome
         if (setbrowser.equals("chrome")){
             driver = new ChromeDriver();
         } else {
-            System.setProperty("webdriver.gecko.driver", "E:\\WebDriver\\bin\\geckodriver.exe");
-            //System.setProperty("webdriver.firefox.marionette", "E:\\WebDriver\\bin\\geckodriver.exe");
             driver = new FirefoxDriver();
         }
         driver.get("https://qa-scooter.praktikum-services.ru/");
@@ -68,14 +66,14 @@ public class AutoTestOrderScooter {
 
 
     @Test
-    public void OrderScooterRunWithParameterizedParamsShowsOk() {
+    public void orderScooterRunWithParameterizedParamsShowsOk() {
         PageObjectHomePage objLoginPage = new PageObjectHomePage(driver);
         objLoginPage.clickButtonOrderUp();
         PageObjectRegistrationPageUser objRegistrationPageUser = new PageObjectRegistrationPageUser(driver);
         objRegistrationPageUser.setUserInfo(name, familyName, address, subwayStation, phoneNumber);
         PageObjectRegistrationPageRent objRegistrationPageRent = new PageObjectRegistrationPageRent(driver);
         objRegistrationPageRent.setRentInfo(whenGets, periodRent, commentForCourier, listCheckboxColour);
-        objRegistrationPageRent.AcceptOrder();
+        objRegistrationPageRent.acceptOrder();
 
     }
 

@@ -72,7 +72,7 @@ public class PageObjectRegistrationPageRent {
         ));
     }
     //проверка того,что заказ оформлен
-    public void AcceptOrder(){
+    public void acceptOrder(){
         waitForLoadButtonYes();
         clickButtonYes();
         waitForLoadConfOfOrder();
